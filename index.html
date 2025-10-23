@@ -2,119 +2,83 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>A’dirt Lounge - Seoul Cafés Picks</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body { margin:0; font-family: 'Nanum Gothic', sans-serif; background:#fcfcfc; }
-    header { text-align: center; font-size: 28px; font-weight: bold; color:#333; letter-spacing:1px; margin: 20px 0; }
-    
-    /* 필터 버튼 */
-    #filters { text-align: center; margin-bottom: 10px; }
-    #filters button {
-      margin: 0 5px; padding: 6px 12px; border:none; border-radius:6px;
-      background:#0077cc; color:#fff; font-size:14px; cursor:pointer;
-    }
-    #filters button:hover { background:#005fa3; }
-
-    main { display: flex; justify-content: center; }
-    #map { width: 90%; height: 600px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-
-    /* 팝업 이미지 통일 */
-    .leaflet-popup-content img {
-      width: 100%;
-      max-height: 150px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 6px;
-    }
-
-    /* 팝업 내부 링크 */
-    .leaflet-popup-content a {
-      display: inline-block;
-      margin-top: 4px;
-      color: #0077cc;
-      text-decoration: none;
-    }
-    .leaflet-popup-content a:hover { text-decoration: underline; }
-
-    /* 모바일 반응형 */
-    @media (max-width: 600px) {
-      #map { width: 95%; height: 400px; }
-      header { font-size: 20px; margin: 15px 0; }
-      .leaflet-popup-content img { max-height: 120px; }
-      #filters button { padding: 5px 10px; font-size:12px; margin: 2px; }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-sA+e2jKx5TVYTUH4/yvWv8u1D+NQ4p8gTV9+3v+Zo3w="
+        crossorigin=""/>
+  
+  <!-- 내 CSS -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-o9N1jS0Rq6g+yXwlv1x8bOaLkJXh3G7l2s4x1p6uTkM="
+          crossorigin=""></script>
 </head>
 <body>
-  <header>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</header>
-  <div id="filters">
-    <button onclick="filterCafes('all')">All</button>
-    <button onclick="filterCafes('vegan')">Vegan</button>
-    <button onclick="filterCafes('dessert')">Dessert</button>
-    <button onclick="filterCafes('study&work')">Study & Work</button>
-    <button onclick="filterCafes('artistic')">Artistic</button>
-    <button onclick="filterCafes('gooddrink')">Good Drink</button>
-  </div>
-  <main>
-    <div id="map"></div>
-  </main>
+  <h1>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</h1>
+  <div id="map"></div>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
+    // 지도 초기화
     const map = L.map('map').setView([37.5665, 126.9780], 12);
 
+    // OpenStreetMap 레이어
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap'
     }).addTo(map);
 
-    // 기본 커스텀 핀 (나중에 이미지 교체 가능)
-    const cafeIcon = L.icon({
-      iconUrl: 'images/custom-pin.png', // custom-pin.png 준비 필요
-      iconSize: [30, 40],
-      iconAnchor: [15, 40],
-      popupAnchor: [0, -40]
-    });
-
+    // 카페 데이터
     const cafes = [
-      {name: "Keid", tag:["study&work"], lat:37.5890, lng:127.0165, addr:"Seoul Seongbuk-gu Seongbuk-dong 58-23", naver:"https://naver.me/xS1vYq3Z", img:"images/keid.jpg"},
-      {name: "SEOHWA COFFEE", tag:["dessert"], lat:37.5731, lng:126.9865, addr:"Seoul Jongno-gu 4(sa)-ga 140-9", naver:"https://naver.me/58jMq7Pd", img:"https://via.placeholder.com/300x200?text=SEOHWA+COFFEE"},
-      {name: "ONEINAMILLION", tag:[], lat:37.5369, lng:127.0020, addr:"Seoul Yongsan-gu Hannam-dong 684-62", naver:"https://naver.me/546BKZRh", img:"https://via.placeholder.com/300x200?text=ONEINAMILLION"},
-      {name: "Midst of Flow", tag:["artistic"], lat:37.5353, lng:126.9950, addr:"Seoul Yongsan-gu Garwol-dong 52-4", naver:"https://naver.me/5JGTq7FM", img:"https://via.placeholder.com/300x200?text=Midst+of+Flow"},
-      {name: "umoae", tag:[], lat:37.5341, lng:126.9935, addr:"Seoul Yongsan-gu Namyeong-dong 41-1", naver:"https://naver.me/5YSgouPZ", img:"https://via.placeholder.com/300x200?text=umoae"},
-      {name: "NAMYEONG PUBLISHER", tag:[], lat:37.5335, lng:126.9920, addr:"Seoul Yongsan-gu Namyeong-dong 92-2", naver:"https://naver.me/xafkTKoA", img:"https://via.placeholder.com/300x200?text=NAMYEONG+PUBLISHER"},
-      {name: "berci", tag:[], lat:37.5347, lng:126.9915, addr:"Seoul Yongsan-gu Seogye-dong 236-12", naver:"https://naver.me/5SSPKoJE", img:"https://via.placeholder.com/300x200?text=berci"},
-      {name: "TAHOECOFFEE", tag:[], lat:37.5400, lng:126.9465, addr:"Seoul Mapo-gu Ahyeon-dong 330-6", naver:"https://naver.me/xv6YCPea", img:"https://via.placeholder.com/300x200?text=TAHOECOFFEE"},
-      {name: "TianGpang Ohuui Black Tea", tag:[], lat:37.5790, lng:126.9450, addr:"Seoul Seodaemun-gu Daehyeon-dong 54-4", naver:"https://naver.me/xenoFDBa", img:"https://via.placeholder.com/300x200?text=TianGpang+Ohuui+Black+Tea"},
-      {name: "veganique", tag:["vegan"], lat:37.5795, lng:126.9440, addr:"Seoul Seodaemun-gu Daehyeon-dong 34-21", naver:"https://naver.me/x7jUeTku", img:"https://via.placeholder.com/300x200?text=veganique"}
-      // 나머지 28개 카페도 동일한 형식으로 추가 가능
+      {
+        name: "Keid",
+        lat: 37.5914,
+        lng: 127.0163,
+        url: "https://naver.me/xS1vYq3Z"
+      },
+      {
+        name: "THE10",
+        lat: 37.5892,
+        lng: 127.0150,
+        url: "https://naver.me/xAAlfQ7u"
+      },
+      {
+        name: "rami-scone (Ik-sun)",
+        lat: 37.5745,
+        lng: 126.9858,
+        url: "https://naver.me/5CFsCwTy"
+      },
+      {
+        name: "ART X SHIFT",
+        lat: 37.5641,
+        lng: 126.9910,
+        url: "https://naver.me/5ZSU1E70"
+      },
+      {
+        name: "daechungpark inwangsan",
+        lat: 37.5838,
+        lng: 126.9640,
+        url: "https://naver.me/5IiwfMZO"
+      },
+      {
+        name: "Vegancafe Dalyang",
+        lat: 37.5730,
+        lng: 126.9862,
+        url: "https://naver.me/xKtXydaf"
+      }
+      // 나머지 카페도 여기에 계속 추가
     ];
 
-    let markers = [];
-
-    function showMarkers(tag='all') {
-      markers.forEach(m => map.removeLayer(m));
-      markers = [];
-
-      cafes.forEach(cafe => {
-        if(tag==='all' || cafe.tag.includes(tag)){
-          const marker = L.marker([cafe.lat, cafe.lng], {icon: cafeIcon}).addTo(map);
-          marker.bindPopup(`<b>${cafe.name}</b><br>
-            <img src="${cafe.img}" alt="${cafe.name}"><br>
-            ${cafe.addr}<br>
-            <a href="${cafe.naver}" target="_blank">네이버 지도 보기</a>
-          `);
-          markers.push(marker);
-        }
-      });
-    }
-
-    function filterCafes(tag){ showMarkers(tag); }
-
-    // 초기 로드
-    showMarkers();
+    // 마커 추가 (기본 파란 핀)
+    cafes.forEach(cafe => {
+      L.marker([cafe.lat, cafe.lng])
+        .addTo(map)
+        .bindPopup(`<b>${cafe.name}</b><br><a href="${cafe.url}" target="_blank">지도 보기</a>`);
+    });
   </script>
 </body>
 </html>
