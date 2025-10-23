@@ -3,63 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</title>
-
+  <title>A’dirt Lounge - 서울 카페 지도</title>
+  
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
   <!-- 내 CSS -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-  <h1>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</h1>
-
-  <div id="map"></div>
-
-  <div id="tags">
-    <button class="tag-btn" data-tag="dessert">Dessert</button>
-    <button class="tag-btn" data-tag="vegan">Vegan</button>
-    <button class="tag-btn" data-tag="artistic">Artistic</button>
-    <button class="tag-btn" data-tag="study&work">Study & Work</button>
-  </div>
+  <header>
+    <h1>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</h1>
+    <div id="tags">
+      <button class="tag-btn" data-tag="all">All</button>
+      <button class="tag-btn" data-tag="dessert">디저트</button>
+      <button class="tag-btn" data-tag="vegan">비건</button>
+      <button class="tag-btn" data-tag="artistic">예술적</button>
+      <button class="tag-btn" data-tag="study&work">공부/작업</button>
+    </div>
+  </header>
+  <main>
+    <div id="map"></div>
+  </main>
+  <footer>
+    <p>© 2025 A’dirt Lounge</p>
+  </footer>
 
   <script>
     const map = L.map('map').setView([37.5665, 126.9780], 12);
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap'
     }).addTo(map);
 
     const cafes = [
-      { name: "Keid", lat: 37.5914, lng: 127.0163, url: "https://naver.me/xS1vYq3Z", tag: "study&work", img: "images/keid.jpg" },
-      { name: "THE10", lat: 37.5892, lng: 127.0150, url: "https://naver.me/xAAlfQ7u", tag: "study&work", img: "images/the10.jpg" },
-      { name: "rami-scone (Ik-sun)", lat: 37.5745, lng: 126.9858, url: "https://naver.me/5CFsCwTy", tag: "dessert", img: "images/ramisconeiksun.jpg" },
-      { name: "ART X SHIFT", lat: 37.5641, lng: 126.9910, url: "https://naver.me/5ZSU1E70", tag: "artistic", img: "images/artshift.jpg" },
-      { name: "daechungpark inwangsan", lat: 37.5838, lng: 126.9640, url: "https://naver.me/5IiwfMZO", tag: "gooddrink", img: "images/daechungpark.jpg" },
-      { name: "Vegancafe Dalyang", lat: 37.5730, lng: 126.9862, url: "https://naver.me/xKtXydaf", tag: "vegan", img: "images/dalnyang.jpg" }
-      // 나머지 카페도 동일하게 추가
+      { name: "Keid", lat: 37.5914, lng: 127.0163, tag: "artistic", url: "https://naver.me/xS1vYq3Z", image: "images/keid.jpg" },
+      { name: "THE10", lat: 37.5892, lng: 127.0150, tag: "study&work", url: "https://naver.me/xAAlfQ7u", image: "images/the10.jpg" },
+      { name: "rami-scone (Ik-sun)", lat: 37.5745, lng: 126.9858, tag: "dessert", url: "https://naver.me/5CFsCwTy", image: "images/ramisconeiksun.jpg" },
+      { name: "ART X SHIFT", lat: 37.5641, lng: 126.9910, tag: "artistic", url: "https://naver.me/5ZSU1E70", image: "images/artshift.jpg" },
+      { name: "daechungpark inwangsan", lat: 37.5838, lng: 126.9640, tag: "study&work", url: "https://naver.me/5IiwfMZO", image: "images/daechungpark.jpg" },
+      { name: "Vegancafe Dalyang", lat: 37.5730, lng: 126.9862, tag: "vegan", url: "https://naver.me/xKtXydaf", image: "images/dalnyang.jpg" }
+      // 추가 카페들도 같은 방식으로 넣어주면 됨
     ];
 
     const markers = [];
-
     cafes.forEach(cafe => {
       const marker = L.marker([cafe.lat, cafe.lng]).addTo(map)
-        .bindPopup(`<b>${cafe.name}</b><br><a href="${cafe.url}" target="_blank">지도 보기</a><br><img src="${cafe.img}" alt="${cafe.name}" style="width:100%; border-radius:5px; margin-top:5px;">`);
-      marker.cafeTag = cafe.tag; // 마커에 태그 저장
+        .bindPopup(`<b>${cafe.name}</b><br><img src="${cafe.image}" alt="${cafe.name} 사진" class="popup-img"><br><a href="${cafe.url}" target="_blank">지도 보기</a>`);
+      marker.cafeTag = cafe.tag;
       markers.push(marker);
     });
 
-    // 태그 필터
     const tagButtons = document.querySelectorAll('.tag-btn');
     tagButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const tag = btn.dataset.tag;
         markers.forEach(marker => {
-          if (marker.cafeTag === tag) {
+          if (tag === "all" || marker.cafeTag === tag) {
             marker.addTo(map);
           } else {
             map.removeLayer(marker);

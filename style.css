@@ -1,57 +1,92 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f9f9f9;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
   }
   
-  h1 {
-    margin-top: 50px; /* 상단 여백 늘림 */
-    margin-bottom: 20px;
-    font-size: 1.8rem;
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  header {
+    text-align: center;
+    padding: 2rem 1rem 1rem 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  #tags {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .tag-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .tag-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
   }
   
   #map {
     width: 90%;
-    max-width: 700px;
-    height: 500px;
-    margin: 0 auto 40px auto;
+    max-width: 1000px;
+    height: 70vh;
     border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
   }
   
-  /* 태그 버튼 */
-  #tags {
-    margin-bottom: 60px;
-  }
-  
-  .tag-btn {
-    padding: 8px 12px;
-    margin: 5px;
-    background-color: #007bff;
-    color: white;
-    border: none;
+  .popup-img {
+    width: 200px;
+    height: auto;
+    margin: 0.5rem 0;
     border-radius: 5px;
-    cursor: pointer;
   }
   
-  .tag-btn:hover {
-    background-color: #0056b3;
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
   }
   
   /* 모바일 반응형 */
-  @media (max-width: 600px) {
-    h1 {
+  @media (max-width: 768px) {
+    header h1 {
       font-size: 1.4rem;
     }
   
     #map {
-      height: 300px;
+      width: 95%;
+      height: 60vh;
     }
   
-    .tag-btn {
-      padding: 6px 10px;
-      font-size: 0.9rem;
+    .popup-img {
+      width: 150px;
     }
   }
