@@ -1,14 +1,14 @@
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #fdfdfd;
+    font-family: Arial, sans-serif;
     text-align: center;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
   }
   
   h1 {
+    margin-top: 20px;
     font-size: 1.8rem;
-    margin-bottom: 20px;
     color: #333;
   }
   
@@ -21,23 +21,24 @@ body {
     border-radius: 10px;
   }
   
-  /* 모바일 화면용 */
+  /* 모바일 반응형 */
   @media (max-width: 600px) {
     #map {
-      width: 95%;       /* 화면 거의 꽉 채우지만 여백 확보 */
-      height: 40vh;     /* 세로 길이 줄임 */
-      margin: 30px auto 60px auto; /* 모바일에 맞게 상하 여백 조정 */
+      width: 95%;
+      height: 30vh;
+      margin: 30px auto 60px auto;
     }
   
     h1 {
-      font-size: 1.4rem; /* 모바일에서 제목 크기 축소 */
+      font-size: 1.4rem;
     }
   }
   
-  .leaflet-popup-content a {
-    text-decoration: none;
-    color: #0077cc;
-  }
-  .leaflet-popup-content a:hover {
-    text-decoration: underline;
+  /* 팝업 이미지 반응형 */
+  .leaflet-popup-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 5px 0;
   }
