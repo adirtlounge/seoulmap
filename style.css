@@ -7,38 +7,51 @@ body {
   }
   
   h1 {
-    margin-top: 20px;
+    margin-top: 50px; /* 상단 여백 늘림 */
+    margin-bottom: 20px;
     font-size: 1.8rem;
     color: #333;
   }
   
   #map {
-    width: 85%;
+    width: 90%;
     max-width: 700px;
-    height: 50vh;
-    margin: 40px auto 80px auto;
-    border: 2px solid #ccc;
+    height: 500px;
+    margin: 0 auto 40px auto;
     border-radius: 10px;
+  }
+  
+  /* 태그 버튼 */
+  #tags {
+    margin-bottom: 60px;
+  }
+  
+  .tag-btn {
+    padding: 8px 12px;
+    margin: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .tag-btn:hover {
+    background-color: #0056b3;
   }
   
   /* 모바일 반응형 */
   @media (max-width: 600px) {
-    #map {
-      width: 95%;
-      height: 30vh;
-      margin: 30px auto 60px auto;
-    }
-  
     h1 {
       font-size: 1.4rem;
     }
-  }
   
-  /* 팝업 이미지 반응형 */
-  .leaflet-popup-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    display: block;
-    margin: 5px 0;
+    #map {
+      height: 300px;
+    }
+  
+    .tag-btn {
+      padding: 6px 10px;
+      font-size: 0.9rem;
+    }
   }

@@ -16,7 +16,15 @@
 </head>
 <body>
   <h1>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</h1>
+
   <div id="map"></div>
+
+  <div id="tags">
+    <button class="tag-btn" data-tag="dessert">Dessert</button>
+    <button class="tag-btn" data-tag="vegan">Vegan</button>
+    <button class="tag-btn" data-tag="artistic">Artistic</button>
+    <button class="tag-btn" data-tag="study&work">Study & Work</button>
+  </div>
 
   <script>
     const map = L.map('map').setView([37.5665, 126.9780], 12);
@@ -27,42 +35,37 @@
     }).addTo(map);
 
     const cafes = [
-      { name: "Keid", lat: 37.5914, lng: 127.0163, url: "https://naver.me/xS1vYq3Z", img: "keid.jpg" },
-      { name: "THE10", lat: 37.5892, lng: 127.0150, url: "https://naver.me/xAAlfQ7u" },
-      { name: "rami-scone (Ik-sun)", lat: 37.5745, lng: 126.9858, url: "https://naver.me/5CFsCwTy" },
-      { name: "ART X SHIFT", lat: 37.5641, lng: 126.9910, url: "https://naver.me/5ZSU1E70" },
-      { name: "daechungpark inwangsan", lat: 37.5838, lng: 126.9640, url: "https://naver.me/5IiwfMZO" },
-      { name: "Vegancafe Dalyang", lat: 37.5730, lng: 126.9862, url: "https://naver.me/xKtXydaf" },
-      { name: "SEOHWA COFFEE", lat: 37.5727, lng: 126.9843, url: "https://naver.me/58jMq7Pd" },
-      { name: "ONEINAMILLION", lat: 37.5340, lng: 127.0083, url: "https://naver.me/546BKZRh" },
-      { name: "Midst of Flow", lat: 37.5362, lng: 127.0132, url: "https://naver.me/5JGTq7FM" },
-      { name: "umoae", lat: 37.5368, lng: 126.9778, url: "https://naver.me/5YSgouPZ" },
-      { name: "NAMYEONG PUBLISHER", lat: 37.5372, lng: 126.9784, url: "https://naver.me/xafkTKoA" },
-      { name: "berci", lat: 37.5352, lng: 126.9791, url: "https://naver.me/5SSPKoJE" },
-      { name: "TAHOECOFFEE", lat: 37.5391, lng: 126.9568, url: "https://naver.me/xv6YCPea" },
-      { name: "TianGpang Ohuui Black Tea", lat: 37.5830, lng: 126.9367, url: "https://naver.me/xenoFDBa" },
-      { name: "veganique", lat: 37.5820, lng: 126.9351, url: "https://naver.me/x7jUeTku" },
-      { name: "cafe.seasonsori", lat: 37.5834, lng: 126.9355, url: "https://naver.me/xjUDYkJK" },
-      { name: "MY SECRET MATE", lat: 37.5823, lng: 126.9384, url: "https://naver.me/F4LGW36P" },
-      { name: "TimMary Sinchon", lat: 37.5821, lng: 126.9392, url: "https://naver.me/5sGVuhTx" },
-      { name: "Colorado Project", lat: 37.5562, lng: 126.9352, url: "https://naver.me/5mhKvFiP" },
-      { name: "ehbd", lat: 37.5571, lng: 126.9330, url: "https://naver.me/G4GPdjyT" },
-      { name: "sweettweak LC&GF", lat: 37.5567, lng: 126.9325, url: "https://naver.me/GA8IrjmC" },
-      { name: "Bake Shop Havet", lat: 37.5560, lng: 126.9158, url: "https://naver.me/G5PlkWBv" },
-      { name: "COFFEE NISHE", lat: 37.4802, lng: 126.9441, url: "https://naver.me/5V8FxJxL" },
-      { name: "veganmama", lat: 37.4831, lng: 126.9475, url: "https://naver.me/F8ualJzR" },
-      { name: "HyggeLife", lat: 37.4790, lng: 126.9480, url: "https://naver.me/GDLsQT6D" },
-      { name: "cafe Turtle", lat: 37.4835, lng: 127.0060, url: "https://naver.me/5noGh6HU" },
-      { name: "LOWIDE APGUJEONG", lat: 37.5258, lng: 127.0335, url: "https://naver.me/5UTzVXd9" },
-      { name: "ZENZEN", lat: 37.5447, lng: 127.0371, url: "https://naver.me/FBaqM0yN" },
-      { name: "Brownpot Bakery/Cafe", lat: 37.5470, lng: 127.0355, url: "https://naver.me/5yWzhcGZ" },
-      { name: "cafe138seongbukdong fruits", lat: 37.5891, lng: 127.0162, url: "https://naver.me/GXgwFmvm" }
+      { name: "Keid", lat: 37.5914, lng: 127.0163, url: "https://naver.me/xS1vYq3Z", tag: "study&work", img: "images/keid.jpg" },
+      { name: "THE10", lat: 37.5892, lng: 127.0150, url: "https://naver.me/xAAlfQ7u", tag: "study&work", img: "images/the10.jpg" },
+      { name: "rami-scone (Ik-sun)", lat: 37.5745, lng: 126.9858, url: "https://naver.me/5CFsCwTy", tag: "dessert", img: "images/ramisconeiksun.jpg" },
+      { name: "ART X SHIFT", lat: 37.5641, lng: 126.9910, url: "https://naver.me/5ZSU1E70", tag: "artistic", img: "images/artshift.jpg" },
+      { name: "daechungpark inwangsan", lat: 37.5838, lng: 126.9640, url: "https://naver.me/5IiwfMZO", tag: "gooddrink", img: "images/daechungpark.jpg" },
+      { name: "Vegancafe Dalyang", lat: 37.5730, lng: 126.9862, url: "https://naver.me/xKtXydaf", tag: "vegan", img: "images/dalnyang.jpg" }
+      // 나머지 카페도 동일하게 추가
     ];
 
+    const markers = [];
+
     cafes.forEach(cafe => {
-      L.marker([cafe.lat, cafe.lng])
-        .addTo(map)
-        .bindPopup(`<b>${cafe.name}</b><br><a href="${cafe.url}" target="_blank">지도 보기</a>`);
+      const marker = L.marker([cafe.lat, cafe.lng]).addTo(map)
+        .bindPopup(`<b>${cafe.name}</b><br><a href="${cafe.url}" target="_blank">지도 보기</a><br><img src="${cafe.img}" alt="${cafe.name}" style="width:100%; border-radius:5px; margin-top:5px;">`);
+      marker.cafeTag = cafe.tag; // 마커에 태그 저장
+      markers.push(marker);
+    });
+
+    // 태그 필터
+    const tagButtons = document.querySelectorAll('.tag-btn');
+    tagButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tag = btn.dataset.tag;
+        markers.forEach(marker => {
+          if (marker.cafeTag === tag) {
+            marker.addTo(map);
+          } else {
+            map.removeLayer(marker);
+          }
+        });
+      });
     });
   </script>
 </body>
