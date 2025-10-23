@@ -15,7 +15,7 @@
   
   header {
     text-align: center;
-    padding: 2rem 1rem 1rem 1rem;
+    padding: 3rem 1rem 1rem 1rem; /* 상단 여백 증가 */
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
@@ -30,6 +30,7 @@
     justify-content: center;
     gap: 0.5rem;
     flex-wrap: wrap;
+    margin-top: 0.5rem;
   }
   
   .tag-btn {
@@ -56,7 +57,7 @@
   #map {
     width: 90%;
     max-width: 1000px;
-    height: 70vh;
+    height: 80vh; /* 세로 길이 증가 */
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.15);
   }
@@ -83,7 +84,7 @@
   
     #map {
       width: 95%;
-      height: 60vh;
+      height: 65vh; /* 모바일 세로 길이 */
     }
   
     .popup-img {

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A’dirt Lounge - 서울 카페 지도</title>
+  <title>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</title>
   
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <!-- 내 CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,10 +17,10 @@
     <h1>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</h1>
     <div id="tags">
       <button class="tag-btn" data-tag="all">All</button>
-      <button class="tag-btn" data-tag="dessert">디저트</button>
-      <button class="tag-btn" data-tag="vegan">비건</button>
-      <button class="tag-btn" data-tag="artistic">예술적</button>
-      <button class="tag-btn" data-tag="study&work">공부/작업</button>
+      <button class="tag-btn" data-tag="dessert">Dessert</button>
+      <button class="tag-btn" data-tag="vegan">Vegan</button>
+      <button class="tag-btn" data-tag="artistic">Artistic</button>
+      <button class="tag-btn" data-tag="study&work">Study & Work</button>
     </div>
   </header>
   <main>
@@ -44,13 +44,12 @@
       { name: "ART X SHIFT", lat: 37.5641, lng: 126.9910, tag: "artistic", url: "https://naver.me/5ZSU1E70", image: "images/artshift.jpg" },
       { name: "daechungpark inwangsan", lat: 37.5838, lng: 126.9640, tag: "study&work", url: "https://naver.me/5IiwfMZO", image: "images/daechungpark.jpg" },
       { name: "Vegancafe Dalyang", lat: 37.5730, lng: 126.9862, tag: "vegan", url: "https://naver.me/xKtXydaf", image: "images/dalnyang.jpg" }
-      // 추가 카페들도 같은 방식으로 넣어주면 됨
     ];
 
     const markers = [];
     cafes.forEach(cafe => {
       const marker = L.marker([cafe.lat, cafe.lng]).addTo(map)
-        .bindPopup(`<b>${cafe.name}</b><br><img src="${cafe.image}" alt="${cafe.name} 사진" class="popup-img"><br><a href="${cafe.url}" target="_blank">지도 보기</a>`);
+        .bindPopup(`<b>${cafe.name}</b><br><img src="${cafe.image}" alt="${cafe.name}" class="popup-img"><br><a href="${cafe.url}" target="_blank">View Map</a>`);
       marker.cafeTag = cafe.tag;
       markers.push(marker);
     });
@@ -60,7 +59,7 @@
       btn.addEventListener('click', () => {
         const tag = btn.dataset.tag;
         markers.forEach(marker => {
-          if (tag === "all" || marker.cafeTag === tag) {
+          if(tag === "all" || marker.cafeTag === tag){
             marker.addTo(map);
           } else {
             map.removeLayer(marker);
