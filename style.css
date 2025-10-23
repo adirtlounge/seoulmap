@@ -1,4 +1,3 @@
-/* 페이지 전체 스타일 */
 body {
     font-family: 'Noto Sans KR', sans-serif;
     margin: 0;
@@ -7,24 +6,21 @@ body {
     text-align: center;
   }
   
-  /* 제목 스타일 */
   h1 {
     font-size: 1.8rem;
     margin-bottom: 20px;
     color: #333;
   }
   
-  /* 지도 스타일 */
   #map {
     width: 100%;
-    max-width: 1000px;  /* PC 최대 너비 */
-    height: 80vh;        /* 화면 높이 80% */
-    margin: 0 auto;      /* 중앙 정렬 */
+    max-width: 1000px;
+    height: 80vh;
+    margin: 0 auto;
     border: 2px solid #ccc;
     border-radius: 10px;
   }
   
-  /* 팝업 링크 스타일 */
   .leaflet-popup-content a {
     text-decoration: none;
     color: #0077cc;

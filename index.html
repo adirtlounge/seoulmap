@@ -4,76 +4,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</title>
-  
+
   <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-sA+e2jKx5TVYTUH4/yvWv8u1D+NQ4p8gTV9+3v+Zo3w="
-        crossorigin=""/>
-  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
   <!-- 내 CSS -->
   <link rel="stylesheet" href="style.css">
-  
+
   <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-          integrity="sha256-o9N1jS0Rq6g+yXwlv1x8bOaLkJXh3G7l2s4x1p6uTkM="
-          crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
   <h1>A’dirt Lounge - Seoul Cafés Picks for Talking & Chilling</h1>
   <div id="map"></div>
 
   <script>
-    // 지도 초기화
     const map = L.map('map').setView([37.5665, 126.9780], 12);
 
-    // OpenStreetMap 레이어
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap'
     }).addTo(map);
 
-    // 카페 데이터
     const cafes = [
-      {
-        name: "Keid",
-        lat: 37.5914,
-        lng: 127.0163,
-        url: "https://naver.me/xS1vYq3Z"
-      },
-      {
-        name: "THE10",
-        lat: 37.5892,
-        lng: 127.0150,
-        url: "https://naver.me/xAAlfQ7u"
-      },
-      {
-        name: "rami-scone (Ik-sun)",
-        lat: 37.5745,
-        lng: 126.9858,
-        url: "https://naver.me/5CFsCwTy"
-      },
-      {
-        name: "ART X SHIFT",
-        lat: 37.5641,
-        lng: 126.9910,
-        url: "https://naver.me/5ZSU1E70"
-      },
-      {
-        name: "daechungpark inwangsan",
-        lat: 37.5838,
-        lng: 126.9640,
-        url: "https://naver.me/5IiwfMZO"
-      },
-      {
-        name: "Vegancafe Dalyang",
-        lat: 37.5730,
-        lng: 126.9862,
-        url: "https://naver.me/xKtXydaf"
-      }
-      // 나머지 카페도 여기에 계속 추가
+      { name: "Keid", lat: 37.5914, lng: 127.0163, url: "https://naver.me/xS1vYq3Z" },
+      { name: "THE10", lat: 37.5892, lng: 127.0150, url: "https://naver.me/xAAlfQ7u" },
+      { name: "rami-scone (Ik-sun)", lat: 37.5745, lng: 126.9858, url: "https://naver.me/5CFsCwTy" },
+      { name: "ART X SHIFT", lat: 37.5641, lng: 126.9910, url: "https://naver.me/5ZSU1E70" },
+      { name: "daechungpark inwangsan", lat: 37.5838, lng: 126.9640, url: "https://naver.me/5IiwfMZO" },
+      { name: "Vegancafe Dalyang", lat: 37.5730, lng: 126.9862, url: "https://naver.me/xKtXydaf" },
+      { name: "SEOHWA COFFEE", lat: 37.5727, lng: 126.9843, url: "https://naver.me/58jMq7Pd" },
+      { name: "ONEINAMILLION", lat: 37.5340, lng: 127.0083, url: "https://naver.me/546BKZRh" },
+      { name: "Midst of Flow", lat: 37.5362, lng: 127.0132, url: "https://naver.me/5JGTq7FM" },
+      { name: "umoae", lat: 37.5368, lng: 126.9778, url: "https://naver.me/5YSgouPZ" },
+      { name: "NAMYEONG PUBLISHER", lat: 37.5372, lng: 126.9784, url: "https://naver.me/xafkTKoA" },
+      { name: "berci", lat: 37.5352, lng: 126.9791, url: "https://naver.me/5SSPKoJE" },
+      { name: "TAHOECOFFEE", lat: 37.5391, lng: 126.9568, url: "https://naver.me/xv6YCPea" },
+      { name: "TianGpang Ohuui Black Tea", lat: 37.5830, lng: 126.9367, url: "https://naver.me/xenoFDBa" },
+      { name: "veganique", lat: 37.5820, lng: 126.9351, url: "https://naver.me/x7jUeTku" },
+      { name: "cafe.seasonsori", lat: 37.5834, lng: 126.9355, url: "https://naver.me/xjUDYkJK" },
+      { name: "MY SECRET MATE", lat: 37.5823, lng: 126.9384, url: "https://naver.me/F4LGW36P" },
+      { name: "TimMary Sinchon", lat: 37.5821, lng: 126.9392, url: "https://naver.me/5sGVuhTx" },
+      { name: "Colorado Project", lat: 37.5562, lng: 126.9352, url: "https://naver.me/5mhKvFiP" },
+      { name: "ehbd", lat: 37.5571, lng: 126.9330, url: "https://naver.me/G4GPdjyT" },
+      { name: "sweettweak LC&GF", lat: 37.5567, lng: 126.9325, url: "https://naver.me/GA8IrjmC" },
+      { name: "Bake Shop Havet", lat: 37.5560, lng: 126.9158, url: "https://naver.me/G5PlkWBv" },
+      { name: "COFFEE NISHE", lat: 37.4802, lng: 126.9441, url: "https://naver.me/5V8FxJxL" },
+      { name: "veganmama", lat: 37.4831, lng: 126.9475, url: "https://naver.me/F8ualJzR" },
+      { name: "HyggeLife", lat: 37.4790, lng: 126.9480, url: "https://naver.me/GDLsQT6D" },
+      { name: "cafe Turtle", lat: 37.4835, lng: 127.0060, url: "https://naver.me/5noGh6HU" },
+      { name: "LOWIDE APGUJEONG", lat: 37.5258, lng: 127.0335, url: "https://naver.me/5UTzVXd9" },
+      { name: "ZENZEN", lat: 37.5447, lng: 127.0371, url: "https://naver.me/FBaqM0yN" },
+      { name: "Brownpot Bakery/Cafe", lat: 37.5470, lng: 127.0355, url: "https://naver.me/5yWzhcGZ" },
+      { name: "cafe138seongbukdong fruits", lat: 37.5891, lng: 127.0162, url: "https://naver.me/GXgwFmvm" }
     ];
 
-    // 마커 추가 (기본 파란 핀)
     cafes.forEach(cafe => {
       L.marker([cafe.lat, cafe.lng])
         .addTo(map)
